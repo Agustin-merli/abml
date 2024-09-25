@@ -1,7 +1,6 @@
 <?php 
 
 require_once("db.php");
-require_once("validar.php");
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 
