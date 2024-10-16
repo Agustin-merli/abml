@@ -33,16 +33,15 @@ CREATE TABLE `clientes` (
   `email` varchar(255) NOT NULL,
   `descripcion` text NOT NULL,
   `edad` int(11) NOT NULL,
-  `eliminado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `nombre`, `email`, `descripcion`, `edad`, `eliminado`) VALUES
-(1, 'Agustin Merli', 'agustinmerli81@gmail.com', 'descripcion 1', 18, 0),
-(2, 'Agustin', 'am@gmail.com', 'descripcion 2', 50, 0);
+INSERT INTO `clientes` (`id`, `nombre`, `email`, `descripcion`, `edad`) VALUES
+(1, 'Agustin Merli', 'agustinmerli81@gmail.com', 'descripcion 1', 18),
+(2, 'Agustin', 'am@gmail.com', 'descripcion 2', 50);
 
 --
 -- Índices para tablas volcadas
