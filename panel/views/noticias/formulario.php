@@ -55,7 +55,7 @@ if ($noticia === NULL) {
 		<h2>Nueva Noticia</h2>
 	<?php } ?>
 
-	<form method="POST" enctype="multipart/form-data" action="../../controllers/noticias.php?operacion=<?php echo (isset($_GET['id']) ? "EDIT" : "NEW") ?>">
+	<form class="miForm" method="POST" enctype="multipart/form-data" action="../../controllers/noticias.php?operacion=<?php echo (isset($_GET['id']) ? "EDIT" : "NEW") ?>">
 
 		<input type="hidden" name="id" value="<?php echo $id ?>">
 
@@ -93,6 +93,53 @@ if ($noticia === NULL) {
 		<input type="submit" value="<?php echo (isset($_GET['id']) ? "Actualizar" : "Cargar") ?>">
 	</form>
 </div>
+
+<script type="text/javascript">
+	document.querySelector(".miForm").addEventListener("submit", function() {
+		var titulo = document.querySelector(".titulo").value.trim();
+		var descripcion = document.querySelector(".descripcion").value.trim();
+		var texto = document.querySelector(".texto").value.trim();
+		var fecha = document.querySelector(".fecha").value.trim();
+		var id_usuario = document.querySelector(".id_usuario").value.trim();
+		var id_categoria = document.querySelector(".id_categoria").value.trim();
+
+		if (titulo == "") {
+			alert("Ingrese el titulo");
+			event.preventDefault();
+			return;
+		}
+
+		if (descripcion == "") {
+			alert("Ingrese la descripcion");
+			event.preventDefault();
+			return;
+		}
+
+		if (texto == "") {
+			alert("Ingrese el texto");
+			event.preventDefault();
+			return;
+		}
+
+		if (fecha == "") {
+			alert("Ingrese la fecha");
+			event.preventDefault();
+			return;
+		}
+
+		if (id_usuario == "") {
+			alert("Ingrese el id_usuario");
+			event.preventDefault();
+			return;
+		}
+
+		if (id_categoria == "") {
+			alert("Ingrese el id_categoria");
+			event.preventDefault();
+			return;
+		}
+	});
+</script>
 
 </body>
 </html>
