@@ -20,40 +20,41 @@ h1 {
     padding-top: 100px;
 }
 
-section {
+.tarjeta {
     background-color: #f4f4f4;
     padding: 25px;
-    width: 300px; 
+    width: 350px; 
     border: 1px solid #ddd;
+    border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-section h2 a {
-    font-size: 1.4em;
+.tarjeta h2 a {
+    font-size: 1.2em;
     color: #333;
     text-decoration: none;
 }
 
-section h2 a:hover {
+.tarjeta h2 a:hover {
     color: #777;
 }
 
-section img {
-    max-width: 100%;
-    height: auto;
-    margin: 10px 0;
+.tarjeta img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
 }
 
-section p {
+.tarjeta p {
     color: #777;
     font-size: 0.9em;
     margin-top: 10px;
 }
 
-section p span {
+.tarjeta p span {
     color: #333;
     font-weight: bold;
 }
@@ -76,6 +77,7 @@ nav {
     color: white; 
     font-weight: bold;
     font-size: 20px; 
+    margin-right: 15px;
 }
 
 .hamburger img {
@@ -88,7 +90,8 @@ nav {
     color: #2d79c4; 
     text-align: center; 
     font-weight: bold; 
-    font-size: 40px; 
+    font-size: 40px;
+    margin-left: 180px; 
 }
 
 .nav-links {
@@ -132,4 +135,137 @@ nav {
     cursor: pointer; 
     text-align: right; 
     padding: 10px; 
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    overflow: hidden;
+    max-width: 250px;
+    margin: 0 auto; 
+    background-color: black;
+    margin-bottom: 17px;
+}
+
+.search-form .buscador {
+    padding: 8px 12px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.search-form:hover .buscador {
+    border: 1px solid black;
+}
+
+.search-form:hover button {
+    border: 1px solid black;
+}
+
+.search-form button {
+    background-color: black;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0px;
+}
+
+.search-form button img {
+    width: 24px; 
+    height: 24px;
+    filter: invert(1);
+
+}
+
+.menu-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-icon img {
+    width: 26px;
+    cursor: pointer;
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.paginacion a, .paginacion span {
+    padding: 8px 12px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #2d79c4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.paginacion a:hover {
+    background-color: #2d79c4;
+    color: #fff;
+}
+
+.paginacion .paginaActual {
+    background-color: #2d79c4;
+    color: #fff;
+    font-weight: bold;
+}
+
+.usuario-logueado, .registro-login {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-size: 16px;
+}
+
+.usuario-logueado span, .usuario-logueado a, .registro-login a {
+    color: #2d79c4;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.usuario-logueado span {
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+.usuario-logueado a:hover, 
+.registro-login a:hover {
+    background-color: #2d79c4;
+    color: #fff;
+}
+
+.usuario-logueado a {
+    color: #ff6347;
+}
+
+.usuario-logueado a:hover {
+    background-color: #ff6347;
+    color: #fff;
+}
+
+.registro-login, .usuario-logueado {
+    margin-right: 20px;
+}
+
+.foto-perfil {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    margin-right: 8px; 
+    object-fit: cover;
 }

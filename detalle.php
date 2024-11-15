@@ -2,6 +2,7 @@
 
 require_once("panel/includes/db.php");
 
+$buscar = isset($_GET['buscar']) ? $_GET['buscar'] : "";
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 
 $stmt = $conx->prepare("SELECT N.*, C.nombre as categoria FROM noticias N INNER JOIN categorias C ON(C.id = N.id_categoria) WHERE N.id = ?");
@@ -34,13 +35,13 @@ $stmt->execute();
 
 $resultadoSTMT = $stmt->get_result();
 
+$stmt->close();
+
 $noticiasRelacionadas = [];
 
 while ($fila = $resultadoSTMT->fetch_object()) {
     $noticiasRelacionadas[] = $fila;
 }
-
-$stmt->close();
 
 ?>
 
@@ -65,8 +66,9 @@ $stmt->close();
 		<span><?php echo $categoria ?></span> | Publicado el <?php echo $fecha ?> | <a href="index.php">mundoinformativo.com</a>
 	</div>
 
-	<img src="panel/<?php echo $imagen ?>" alt="<?php echo $titulo ?>">
-
+	<div class="imagenPrincipal">
+		<img src="panel/<?php echo $imagen ?>" alt="<?php echo $titulo ?>">
+	</div>
 	<p class="texto"><?php echo $texto ?></p>
 
 	<h2>También te puede interesar...</h2>
@@ -78,7 +80,7 @@ $stmt->close();
 
 		       	<div>
 		           	<h3><a href="detalle.php?id=<?php echo $fila->id ?>"><?php echo $fila->titulo ?></a></h3>
-		    		<p class="meta-info"><?php echo $categoria ?> | <?php echo $fecha ?></p>
+		    		<p class="meta-info2"><?php echo $categoria ?> | <?php echo $fila->fecha ?></p>
 		    	</div>
 		    </div>		    
 		<?php } ?>

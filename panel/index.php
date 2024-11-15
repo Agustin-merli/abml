@@ -2,6 +2,8 @@
 
 require_once("login/validar.php");
 
+@session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +12,7 @@ require_once("login/validar.php");
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/programacion/abml/panel/css/menu.css">
-	<title>Panel</title>
+	<title>Panel de Control</title>
 </head>
 <body>
 
@@ -20,15 +22,20 @@ require_once("login/validar.php");
 			<ul>
 			    <li><a href="/programacion/abml/panel/views/noticias/listado.php">Noticias</a></li>
 			    <li><a href="/programacion/abml/panel/views/categorias/listado.php">Categorias</a></li>
-			    <li><a href="/programacion/abml/panel/views/clientes/listado.php">Clientes</a></li>
+			    <li><a href="/programacion/abml/panel/views/usuarios/listado.php">Usuarios</a></li>
+			    <li><a href="/programacion/abml/panel/views/administradores/listado.php">Administradores</a></li>			    
 			    <li><a href="/programacion/abml/panel/login/cerrarSesion.php">Cerrar Sesion</a></li>
 			 	<li><a href="/programacion/abml/index.php">Ver Web</a></li>
 			</ul>
 		</nav>
 	</div>
 
-	<main>
-		<h1></h1>
+	<main class="contenido">
+		<?php if (isset($_SESSION['usuario'])) { ?>
+			<div class="bienvenido">
+				<h1>Bienvenido al Panel de Control, <?php echo htmlspecialchars($_SESSION['usuario']) ?>!</h1>
+			</div>
+		<?php } ?>
 	</main>
 
 </body>

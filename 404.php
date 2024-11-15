@@ -4,37 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error 404 - Página no encontrada</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        
-        h1 {
-            font-size: 50px;
-        }
-        
-        p {
-            font-size: 18px;
-        }
-
-        .volver {
-            display: inline-block;
-            background-color: #007BFF;
-            padding: 5px;
-            border-radius: 10px;
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="panel/css/404.css">
 </head>
 <body>
     <h1>Error 404</h1>

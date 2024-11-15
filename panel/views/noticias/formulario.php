@@ -5,7 +5,10 @@ require_once("../../login/validar.php");
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 
-$stmt = $conx->prepare("SELECT * FROM noticias WHERE id = ?");
+$stmt = $conx->prepare("SELECT N.*, A.usuario, C.nombre as categoria FROM noticias N 
+    INNER JOIN administradores A ON (N.id_usuario = A.id) 
+    INNER JOIN categorias C ON (N.id_categoria = C.id) 
+    WHERE N.id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 
@@ -35,6 +38,34 @@ if ($noticia === NULL) {
 	$id_categoria = $noticia->id_categoria;
 }
 
+// Obtengo el valor del usuario
+$stmt = $conx->prepare("SELECT * FROM administradores");
+$stmt->execute();
+
+$resultadoSTMT = $stmt->get_result();
+
+$resultado = [];
+
+while ($fila = $resultadoSTMT->fetch_object()) {
+	$resultado[] = $fila;
+}
+
+$stmt->close();
+
+// Obtengo el valor de la categoria
+$stmt = $conx->prepare("SELECT * FROM categorias");
+$stmt->execute();
+
+$resultadoCategorias = $stmt->get_result();
+
+$resultadoCategoria = [];
+
+while ($fila = $resultadoCategorias->fetch_object()) {
+	$resultadoCategoria[] = $fila;
+}
+
+$stmt->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +74,7 @@ if ($noticia === NULL) {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../../css/formulario.css">	
-	<title>Formulario Noticias</title>
+	<title>Formulario de Noticias</title>
 </head>
 <body>
 
@@ -84,11 +115,27 @@ if ($noticia === NULL) {
 			<input type="file" name="imagen" accept=".jpg">
 		<?php } ?>	
 
-		<br><label>Id_usuario:</label><br>
-		<input class="id_usuario" type="number" name="id_usuario" value="<?php echo $id_usuario ?>">
+		<br><label>Usuario: </label><br>
+		<select name="id_usuario" class="id_usuario">
+			<option value="" disabled <?php echo ($id_usuario == 0) ? 'selected' : '' ?>>Selecciona un usuario</option>
 
-		<br><label>Id_categoria:</label><br>
-		<input class="id_categoria" type="number" name="id_categoria" value="<?php echo $id_categoria ?>">
+			<?php foreach ($resultado as $fila) { ?>
+				<option value="<?php echo $fila->id ?>" <?php echo ($fila->id == $id_usuario) ? 'selected' : '' ?>>
+					<?php echo $fila->usuario ?>
+				</option>			
+			<?php } ?>
+		</select>
+
+		<br><label>Categoria: </label><br>
+		<select name="id_categoria" class="id_categoria">
+			<option value="" disabled <?php echo ($id_usuario == 0) ? 'selected' : '' ?>>Selecciona una categoria</option>
+		
+			<?php foreach ($resultadoCategoria as $fila) { ?>
+				<option value="<?php echo $fila->id ?>" <?php echo ($fila->id == $id_categoria) ? 'selected' : '' ?>>
+					<?php echo $fila->nombre ?>
+				</option>
+			<?php } ?>
+		</select>
 
 		<input type="submit" value="<?php echo (isset($_GET['id']) ? "Actualizar" : "Cargar") ?>">
 	</form>
@@ -100,8 +147,8 @@ if ($noticia === NULL) {
 		var descripcion = document.querySelector(".descripcion").value.trim();
 		var texto = document.querySelector(".texto").value.trim();
 		var fecha = document.querySelector(".fecha").value.trim();
-		var id_usuario = document.querySelector(".id_usuario").value.trim();
-		var id_categoria = document.querySelector(".id_categoria").value.trim();
+		var usuario = document.querySelector(".id_usuario").value.trim();
+		var categoria = document.querySelector(".id_categoria").value.trim();
 
 		if (titulo == "") {
 			alert("Ingrese el titulo");
@@ -127,14 +174,14 @@ if ($noticia === NULL) {
 			return;
 		}
 
-		if (id_usuario == "") {
-			alert("Ingrese el id_usuario");
+		if (usuario == "") {
+			alert("Ingrese el Usuario");
 			event.preventDefault();
 			return;
 		}
 
-		if (id_categoria == "") {
-			alert("Ingrese el id_categoria");
+		if (categoria == "") {
+			alert("Ingrese la categoria");
 			event.preventDefault();
 			return;
 		}

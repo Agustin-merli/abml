@@ -18,10 +18,10 @@ if ($operacion == "NEW") {
 	if ($_FILES['imagen']['name']) {
 		$carpetaASubir = "../uploads/";
 		$nombreImagen = basename($_FILES['imagen']['name']);
-		$rutaFinal = $carpetaASubir . $nombreImagen;
+		$rutaFinal = $carpetaASubir . date("YmdHis") . $nombreImagen;
 
 		if (move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaFinal)) {
-			$imagen = "uploads/" . $nombreImagen;
+			$imagen = "uploads/" . date("YmdHis") . $nombreImagen;
 		} else {
 			echo "Error al subir la imagen.";
 		}

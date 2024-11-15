@@ -5,7 +5,7 @@ require_once("../../login/validar.php");
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 
-$stmt = $conx->prepare("SELECT * FROM categorias WHERE id = ?");
+$stmt = $conx->prepare("SELECT C.*, A.usuario FROM categorias C INNER JOIN administradores A ON(A.id = C.id_usuario) WHERE C.id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 
@@ -25,6 +25,20 @@ if ($categoria === NULL) {
 	$id_usuario = $categoria->id_usuario;
 }
 
+// obtengo el valor del usuario
+$stmt = $conx->prepare("SELECT * FROM administradores");
+$stmt->execute();
+
+$resultadoSTMT = $stmt->get_result();
+
+$resultado = [];
+
+while ($fila = $resultadoSTMT->fetch_object()) {
+	$resultado[] = $fila;
+}
+
+$stmt->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +47,7 @@ if ($categoria === NULL) {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../../css/formulario.css">
-	<title>Formulario Categorías</title>
+	<title>Formulario de Categorías</title>
 </head>
 <body>
 
@@ -54,8 +68,16 @@ if ($categoria === NULL) {
 		<label>Nombre: </label><br>
 		<input class="nombre" type="text" name="nombre" value="<?php echo $nombre ?>">
 
-		<br><label>Id_usuario: </label><br>
-		<input class="id_usuario" type="number" name="id_usuario" value="<?php echo $id_usuario ?>">
+		<br><label>Usuario: </label><br>
+		<select name="id_usuario" class="id_usuario">
+			<option value="" disabled <?php echo ($id_usuario == 0) ? 'selected' : '' ?>>Selecciona un usuario</option>
+
+			<?php foreach ($resultado as $fila) { ?>
+				<option value="<?php echo $fila->id ?>" <?php echo ($fila->id == $id_usuario) ? 'selected' : '' ?>>
+					<?php echo $fila->usuario ?>
+				</option>			
+			<?php } ?>
+		</select>
 
 		<input type="submit" value="<?php echo (isset($_GET['id']) ? "Actualizar" : "Cargar") ?>">
 	</form>
@@ -64,7 +86,7 @@ if ($categoria === NULL) {
 <script>
 	document.querySelector(".miForm").addEventListener("submit", function(event) {
 		var nombre = document.querySelector(".nombre").value.trim();
-		var id_usuario = document.querySelector(".id_usuario").value.trim();
+		var usuario = document.querySelector(".id_usuario").value.trim();
 
 		if (nombre == "") {
 			alert("Ingrese el nombre de la categoria");
@@ -72,14 +94,13 @@ if ($categoria === NULL) {
 			return;
 		}
 
-		if (id_usuario == 0) {
-			alert("Ingrese el id_usuario");
+		if (usuario == "") {
+			alert("Ingrese el Usuario");
 			event.preventDefault();
 			return;
 		}
 	});
 </script>
-
 
 </body>
 </html>

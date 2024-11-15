@@ -9,7 +9,7 @@ body {
 .form-container {
     max-width: 600px;
     margin: 20px auto;
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -30,7 +30,7 @@ label {
     color: #1c2e50;
 }
 
-.nombre, .email, .descripcion, .edad, .id_usuario, .titulo, .texto, .fecha, .id_categoria {
+.usuario, .nombre, .email, .descripcion, .password, .id_usuario, .titulo, .texto, .fecha, .id_categoria {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -41,7 +41,7 @@ label {
 }
 
 input[type="file"] {
-    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 img {
@@ -83,4 +83,14 @@ input[type="submit"]:hover {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
+}
+
+select {
+    background-color: #fff;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
 }
